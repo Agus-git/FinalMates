@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final</title><meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    /* Create three unequal columns that floats next to each other */
+    .column {
+      float: left;
+      padding: 10px;
+      height: 960px; /* Should be removed. Only for demonstration */
+    }
+    
+    .left, .right {
+      width: 20%;
+    }
+    
+    .middle {
+      width: 60%;
+    }
+    
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    </style>
+</head>
+<body>
+  <h2>El Mejor Final</h2>
+  <button id = "btn"> Start</button>
+
+  <div class="row">
+    <div class="column left" style="background-color:#aaa;">
+      <h2>Dimensiones</h2>
+      <h5>
+        X <input type="text" value="640" id = DimX>
+      </h5>
+      <h5>
+        Y <input type="text" value="960" id = DimY>
+      </h5>
+    </div>
+
+    <div class="column middle" style="background-color:#bbb;">
+
+      <canvas id="myCanvas" width="640" height="960" style="border:1px solid #000000;"></canvas> 
+      <script type="text/javascript"> 
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+      
+        ctx.moveTo(c.width/2,0);
+        ctx.lineTo(c.width/2,c.height);
+        ctx.stroke();
+        ctx.moveTo(0,c.height/2);
+        ctx.lineTo(c.width,c.height/2);
+        ctx.stroke();
+      </script>
+    </div>
+
+    <div class="column right" style="background-color:#ccc;">
+      <h5 style="color:Tomato;">
+        R <input type="text" value="10" id = Cir1>
+        X <input type="text" value="6" id = PosX1>
+        Y <input type="text" value="1" id = PosY1> 
+       
+      </h5>
+      <h5 style="color:rgb(26, 83, 9);">
+        R <input type="text" value="10" id = Cir2>
+        X <input type="text" value="-2" id = PosX2>
+        Y <input type="text" value="5" id = PosY2> 
+       
+      </h5>
+    </div>
+    <script src="App.js"></script>
+  </body>
+</html>
