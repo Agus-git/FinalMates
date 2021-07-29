@@ -6,6 +6,14 @@ function Motor()
     var cir1 = new Circulo(document.getElementById("Cir1").value,document.getElementById("PosX1").value,document.getElementById("PosY1").value)
     var cir2 = new Circulo(document.getElementById("Cir2").value,document.getElementById("PosX2").value,document.getElementById("PosY2").value)
     
+    this.Dibujador(cir1,cir2);
+
+    
+}
+
+function Dibujador(cir1,cir2)
+{
+    console.log("Llego");
     var canvas = document.getElementById("myCanvas");
     var circle = canvas.getContext("2d");
     circle.beginPath();
