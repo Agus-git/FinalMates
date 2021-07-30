@@ -13,16 +13,18 @@ function Motor()
     var cir2 = new Circulo(document.getElementById("Cir2").value,document.getElementById("PosX2").value,document.getElementById("PosY2").value,document.getElementById("VdX2").value,document.getElementById("VdY2").value);
     var canvas = document.getElementById("myCanvas");
     this.Dibujador(cir1,cir2,canvas);
-    console.log(cir1);
-    setInterval(Repetidor,actualizador);
+    var bucle = setInterval(Repetidor,actualizador);
 
     function Repetidor()
     {
         Limpieza(cir1.EcuacionVectorialDeLaRecta(r-1),canvas);
-        console.log(cir1.EcuacionVectorialDeLaRecta(r-1));
         Limpieza(cir2.EcuacionVectorialDeLaRecta(r-1),canvas);
         Dibujador(cir1.EcuacionVectorialDeLaRecta(r),cir2.EcuacionVectorialDeLaRecta(r),canvas);
         r++;
+        console.log(r);
+        if (r>99) {
+            clearInterval(bucle);
+        }
     }
 
 }
@@ -69,7 +71,7 @@ class Circulo
 
 function Randomizador() {
     var canvas = document.getElementById("myCanvas");
-    var x = canvas.width/2;
+    var x = canvas.width/2 - Number(document.getElementById("Cir1").value);
     var y = canvas.height/2;
     console.log(Math.floor(Math.random()*(20-0)+0));
 
