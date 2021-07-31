@@ -8,7 +8,7 @@ btnRandomVD.addEventListener("click", () => RandomizadorVD())
 function Motor()
 {
     /*
-        Arriba
+                Arriba
         _____________________________
         |    y`-y' |                 |
         |m = _____ | (y-y') = m(x-x')|                 
@@ -21,11 +21,24 @@ function Motor()
         480-480      0
         -------  =  --- = 0
         325+325     650
+
         y-480 = 0
         y = 480
 
-        Abajo
-        Izquierda
+                Abajo                       Izquierda                         
+        ----------|---------            ----------|---------
+        x' = -325 | x` = 325            x' = -325 | x` = -325
+        y' = -480 | y` = -480           y' = 480  | y` = -480
+        ----------|---------            ----------|---------
+        -480+480      0                 -480-480     -960
+        -------  =   --- = 0            --------  =  ---- = Error
+        325+325      650                -325+325       0
+
+            y+480 = 0                       y+480 = 0
+            y = -480                        y = -480
+
+
+
         Derecha
     */
     var r = 1;
@@ -35,7 +48,7 @@ function Motor()
     var canvas = document.getElementById("myCanvas");
     this.Dibujador(cir1,cir2,canvas);
     var bucle = setInterval(Repetidor,actualizador);
-    var minibucle = setInterval(Calculador,actualizador*2);
+    var minibucle = setInterval(Calculador,actualizador*2/*Pendiente a cambiar a 10*/);
 
     function Repetidor()
     {
@@ -51,8 +64,11 @@ function Motor()
     }
 
     function Calculador() {
-        console.log(cir1.EcuacionVectorialDeLaRecta(r));
+        //console.log(cir1.EcuacionVectorialDeLaRecta(r));
         DistLado(0,-1,480, cir1.EcuacionVectorialDeLaRecta(r))
+        DistLado(0,-1,480, cir2.EcuacionVectorialDeLaRecta(r))
+        DistLado(0,-1,-480, cir1.EcuacionVectorialDeLaRecta(r))
+        DistLado(0,-1,-480, cir2.EcuacionVectorialDeLaRecta(r))
         console.log();
     }
 }
