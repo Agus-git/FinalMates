@@ -55,6 +55,15 @@ function Motor()
         Limpieza(cir1.EcuacionVectorialDeLaRecta(r-1),canvas);
         Limpieza(cir2.EcuacionVectorialDeLaRecta(r-1),canvas);
         Dibujador(cir1.EcuacionVectorialDeLaRecta(r),cir2.EcuacionVectorialDeLaRecta(r),canvas);
+        console.log(cir1.EcuacionVectorialDeLaRecta(r))
+        if (DistLado(0,-1,-480,cir1.EcuacionVectorialDeLaRecta(r))<=cir1.tamaño) {
+            circulo = cir1.EcuacionVectorialDeLaRecta(r);
+            console.log(circulo, "Esta es la copia");
+            circulo.Switchvdy();
+            cir1 = circulo.EcuacionVectorialDeLaRecta(r*-1);
+            console.log(circulo, "Copia movida");
+            console.log(cir1, "Original movida");
+        }
         r++;
         //console.log(r);
         if (r>199) {
@@ -70,6 +79,26 @@ function Motor()
         DistLado(0,-1,-480, cir1.EcuacionVectorialDeLaRecta(r))
         DistLado(0,-1,-480, cir2.EcuacionVectorialDeLaRecta(r))
         console.log();
+    }
+}
+
+class Circulo
+{
+    constructor(tamaño,x,y,vdx,vdy)
+    {
+        this.tamaño = tamaño;
+        this.x = Number(x);
+        this.y = Number(y);
+        this.vdx = Number(vdx);
+        this.vdy = Number(vdy);
+    }
+
+    EcuacionVectorialDeLaRecta(r) 
+    {
+        return new Circulo(this.tamaño,this.x+this.vdx*r,this.y+this.vdy*r,this.vdx,this.vdy);
+    }
+    Switchvdy(){
+        this.vdy = -this.vdy;
     }
 }
 
@@ -99,23 +128,6 @@ function Limpieza(cir,canvas)
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     ctx.clearRect((cir.x + canvas.width/2) - cir.tamaño-2, (cir.y + canvas.height/2)- cir.tamaño-2, cir.tamaño*2+ 5, cir.tamaño*2+5);
-}
-
-class Circulo
-{
-    constructor(tamaño,x,y,vdx,vdy)
-    {
-        this.tamaño = tamaño;
-        this.x = Number(x);
-        this.y = Number(y);
-        this.vdx = Number(vdx);
-        this.vdy = Number(vdy);
-    }
-
-    EcuacionVectorialDeLaRecta(r) 
-    {
-        return new Circulo(this.tamaño,this.x+this.vdx*r,this.y+this.vdy*r,0,0);
-    }
 }
 
 function Randomizador() {
