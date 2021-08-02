@@ -54,8 +54,7 @@ function Motor()
     {
         Limpieza(cir1.EcuacionVectorialDeLaRecta(r-1),canvas);
         Limpieza(cir2.EcuacionVectorialDeLaRecta(r-1),canvas);
-        Dibujador(cir1.EcuacionVectorialDeLaRecta(r),cir2.EcuacionVectorialDeLaRecta(r),canvas);
-        
+        Dibujador(cir1.EcuacionVectorialDeLaRecta(r),cir2.EcuacionVectorialDeLaRecta(r),canvas)
         cir1.RevisarLados(r);
         cir2.RevisarLados(r);
         r++;
@@ -63,15 +62,23 @@ function Motor()
         if (r>199) {
             clearInterval(bucle);
             clearInterval(minibucle);
+            console.log(r);
         }
     }
 
     function Calculador() {
         //console.log(cir1.EcuacionVectorialDeLaRecta(r));
-        DistLado(0,-1,480, cir1.EcuacionVectorialDeLaRecta(r));
-        DistLado(0,-1,480, cir2.EcuacionVectorialDeLaRecta(r));
-        DistLado(0,-1,-480, cir1.EcuacionVectorialDeLaRecta(r));
-        DistLado(0,-1,-480, cir2.EcuacionVectorialDeLaRecta(r));
+        circulo1 = cir1.EcuacionVectorialDeLaRecta(r);
+        circulo2 = cir2.EcuacionVectorialDeLaRecta(r);
+
+        DistLado(0,-1,480, circulo1);
+        DistLado(0,-1,480, circulo2);
+        DistLado(0,-1,-480, circulo1);
+        DistLado(0,-1,-480, circulo2);
+        if(DistanciaEntre2Puntos(circulo1,circulo2)<= (circulo1.tamaño/2) + (circulo2.tamaño/2))
+        {
+            console.log("A calcular");
+        }
     }
 }
 
@@ -100,8 +107,9 @@ class Circulo
     }
     RevisarLados(r)
     {
-        if (DistLado(0,-1,-480,this.EcuacionVectorialDeLaRecta(r))<=this.tamaño) {
-            var circulo = this.EcuacionVectorialDeLaRecta(r);
+        var circulo = this.EcuacionVectorialDeLaRecta(r);
+
+        if (DistLado(0,-1,-480,circulo)<=this.tamaño) {
             circulo.Switchvdy();
             var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
             this.x = final.x;
@@ -109,8 +117,7 @@ class Circulo
             this.vdy = final.vdy;
         }
 
-        if (DistLado(0,-1,480,this.EcuacionVectorialDeLaRecta(r))<=this.tamaño) {
-            var circulo = this.EcuacionVectorialDeLaRecta(r);
+        if (DistLado(0,-1,480,circulo)<=this.tamaño) {
             circulo.Switchvdy();
             var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
             this.x = final.x;
@@ -118,8 +125,7 @@ class Circulo
             this.vdy = final.vdy;
         }
 
-        if (Math.abs(-325 - this.EcuacionVectorialDeLaRecta(r).x) <= this.tamaño) {
-            var circulo = this.EcuacionVectorialDeLaRecta(r);
+        if (Math.abs(-325 - circulo.x) <= this.tamaño) {
             circulo.Switchvdx();
             var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
             this.x = final.x;
@@ -127,8 +133,7 @@ class Circulo
             this.vdx = final.vdx;
         }
 
-        if (Math.abs(325 - this.EcuacionVectorialDeLaRecta(r).x) <= this.tamaño) {
-            var circulo = this.EcuacionVectorialDeLaRecta(r);
+        if (Math.abs(325 - circulo.x) <= this.tamaño) {
             circulo.Switchvdx();
             var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
             this.x = final.x;
@@ -136,6 +141,10 @@ class Circulo
             this.vdx = final.vdx;
         }
     }
+}
+function DistanciaEntre2Puntos(cir1,cir2)
+{
+    return Math.sqrt(Math.pow(cir1.x-cir2.x,2) + Math.pow(cir1.y-cir2.y,2));
 }
 
 function DistLado(x,y,num,circle)
