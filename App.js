@@ -46,9 +46,12 @@ function Motor()
     var cir1 = new Circulo(document.getElementById("Cir1").value,document.getElementById("PosX1").value,document.getElementById("PosY1").value*-1,document.getElementById("VdX1").value,document.getElementById("VdY1").value * -1);
     var cir2 = new Circulo(document.getElementById("Cir2").value,document.getElementById("PosX2").value,document.getElementById("PosY2").value*-1,document.getElementById("VdX2").value,document.getElementById("VdY2").value * -1);
     var canvas = document.getElementById("myCanvas");
+    var duracion = Number(document.getElementById("labelduracion").value);
+    var frecuencia = Number(document.getElementById("labelfrecuencia").value);
+
     this.Dibujador(cir1,cir2,canvas);
     var bucle = setInterval(Repetidor,actualizador);
-    var minibucle = setInterval(Calculador,actualizador*2/*Pendiente a cambiar a 10*/);
+    var minibucle = setInterval(Calculador,frecuencia);
 
     function Repetidor()
     {
@@ -59,7 +62,7 @@ function Motor()
         cir2.RevisarLados(r);
         r++;
         //console.log(r);
-        if (r>199) {
+        if (r>(duracion-1)) {
             clearInterval(bucle);
             clearInterval(minibucle);
             console.log(r);
@@ -77,7 +80,67 @@ function Motor()
         DistLado(0,-1,-480, circulo2);
         if(DistanciaEntre2Puntos(circulo1,circulo2)<= (circulo1.tamaño/2) + (circulo2.tamaño/2))
         {
-            console.log("A calcular");
+            x1 = circulo1.x;
+            y1 = circulo1.y;
+            r1 = circulo1.tamaño/2;
+
+            x2 = circulo2.x;
+            y2 = circulo2.y;
+            r2 = circulo2.tamaño/2;
+
+            var na1 = -x1*2;
+            var na2 = Math.pow(x1,2);
+            var na3 = -y1*2;
+            var na4 = Math.pow(y1,2);
+            var na5 = Math.pow(r1,2);
+            var na6 = na5+(-na2)+(-na4);
+            console.log("Circulo 1= ",circulo1);
+            console.log("Circulo 2= ",circulo2);
+            console.log("x^2"+txt(na1)+"x"+txt(na2)+"+y^2"+txt(na3)+"y"+txt(na4)+" = "+na5);
+            console.log("x^2"+txt(na1)+"x"+"+y^2"+txt(na3)+"y"+" = "+na5+txt(-na2)+txt(-na4));
+            console.log("x^2"+txt(na1)+"x"+"+y^2"+txt(na3)+"y"+" = "+na6);
+
+            var nb1 = -x2*2;
+            var nb2 = Math.pow(x2,2);
+            var nb3 = -y2*2;
+            var nb4 = Math.pow(y2,2);
+            var nb5 = Math.pow(r2,2);
+            var nb6 = nb5+(-nb2)+(-nb4);
+            console.log("x^2"+txt(nb1)+"x"+txt(nb2)+"+y^2"+txt(nb3)+"y"+txt(nb4)+" = "+nb5);
+            console.log("x^2"+txt(nb1)+"x"+"+y^2"+txt(nb3)+"y"+" = "+nb5+txt(-nb2)+txt(-nb4));
+            console.log("x^2"+txt(nb1)+"x"+"+y^2"+txt(nb3)+"y"+" = "+nb6);
+            console.log();
+            console.log("x^2"+txt(na1)+"x"+"+y^2"+txt(na3)+"y"+" = "+na6);
+            console.log("-x^2"+txt(-nb1)+"x"+"-y^2"+txt(-nb3)+"y"+" = "+(-nb6));
+            console.log()
+
+            var nc1 = na1+(-nb1);
+            var nc2 = na3+(-nb3);
+            var nc3 = na6+(-nb6);
+            var nc4 = nc3/nc2;
+            var nc5 = -nc1/nc2;
+            console.log(nc1+"x"+txt(nc2)+"y = "+nc3);
+            console.log(nc2+"y = "+nc3+txt(-nc1)+"x");
+            console.log("y = "+nc4+txt(nc5)+"x");
+            console.log();
+
+            var ecant = nc4+txt(nc5)+"x"
+            var nd1 = Math.pow(nc4,2);
+            var nd2 = (nc4*nc5)*2;
+            var nd3 = Math.pow(nc5,2);
+            var nd4 = na3*nc4;
+            var nd5 = na3*nc5;
+            var nda = Number(nd3+1);
+            var ndb = Number(na1+nd2+nd5);
+            var ndc = Number(nd1+nd4+(-na6));
+            console.log("x^2"+txt(na1)+"x"+"("+ecant+")^2"+txt(na3)+"*("+ecant+")"+" = "+na6);
+            console.log("x^2"+txt(na1)+"x"+txt(nd1)+txt(nd2)+"x"+txt(nd3)+"x^2"+txt(nd4)+txt(nd5)+"x"+(-na6)+" = 0");
+            console.log(nda+"x^2"+txt(ndb)+"x"+txt(ndc)+" = 0");
+            console.log();
+            console.log("X1 = ",(-ndb+Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda));
+            console.log("X2 = ",(-ndb-Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda));
+            console.log("Y1 = ",nc4+nc5*((-ndb+Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda)));
+            console.log("Y1 = ",nc4+nc5*((-ndb-Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda)));
         }
     }
 }
@@ -188,8 +251,19 @@ function Randomizador() {
 }
 
 function RandomizadorVD() {
-    document.getElementById("VdX1").value = Math.floor(Math.random()*(50-(-50))+(-50));
-    document.getElementById("VdY1").value = Math.floor(Math.random()*(50-(-50))+(-50));
-    document.getElementById("VdX2").value = Math.floor(Math.random()*(50-(-50))+(-50));
-    document.getElementById("VdY2").value = Math.floor(Math.random()*(50-(-50))+(-50));
+    document.getElementById("VdX1").value = Math.floor(Math.random()*(10-(-10))+(-10));
+    document.getElementById("VdY1").value = Math.floor(Math.random()*(10-(-10))+(-10));
+    document.getElementById("VdX2").value = Math.floor(Math.random()*(10-(-10))+(-10));
+    document.getElementById("VdY2").value = Math.floor(Math.random()*(10-(-10))+(-10));
+}
+
+function txt(num)
+{
+    if (num < 0)
+    {
+        return num + "";
+    }else
+    {
+        return "+" + num;
+    }
 }
