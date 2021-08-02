@@ -55,15 +55,9 @@ function Motor()
         Limpieza(cir1.EcuacionVectorialDeLaRecta(r-1),canvas);
         Limpieza(cir2.EcuacionVectorialDeLaRecta(r-1),canvas);
         Dibujador(cir1.EcuacionVectorialDeLaRecta(r),cir2.EcuacionVectorialDeLaRecta(r),canvas);
-        console.log(cir1.EcuacionVectorialDeLaRecta(r))
-        if (DistLado(0,-1,-480,cir1.EcuacionVectorialDeLaRecta(r))<=cir1.tamaño) {
-            circulo = cir1.EcuacionVectorialDeLaRecta(r);
-            console.log(circulo, "Esta es la copia");
-            circulo.Switchvdy();
-            cir1 = circulo.EcuacionVectorialDeLaRecta(r*-1);
-            console.log(circulo, "Copia movida");
-            console.log(cir1, "Original movida");
-        }
+        
+        cir1.RevisarLados(r);
+        cir2.RevisarLados(r);
         r++;
         //console.log(r);
         if (r>199) {
@@ -74,11 +68,10 @@ function Motor()
 
     function Calculador() {
         //console.log(cir1.EcuacionVectorialDeLaRecta(r));
-        DistLado(0,-1,480, cir1.EcuacionVectorialDeLaRecta(r))
-        DistLado(0,-1,480, cir2.EcuacionVectorialDeLaRecta(r))
-        DistLado(0,-1,-480, cir1.EcuacionVectorialDeLaRecta(r))
-        DistLado(0,-1,-480, cir2.EcuacionVectorialDeLaRecta(r))
-        console.log();
+        DistLado(0,-1,480, cir1.EcuacionVectorialDeLaRecta(r));
+        DistLado(0,-1,480, cir2.EcuacionVectorialDeLaRecta(r));
+        DistLado(0,-1,-480, cir1.EcuacionVectorialDeLaRecta(r));
+        DistLado(0,-1,-480, cir2.EcuacionVectorialDeLaRecta(r));
     }
 }
 
@@ -97,8 +90,51 @@ class Circulo
     {
         return new Circulo(this.tamaño,this.x+this.vdx*r,this.y+this.vdy*r,this.vdx,this.vdy);
     }
-    Switchvdy(){
+    Switchvdy()
+    {
         this.vdy = -this.vdy;
+    }
+    Switchvdx()
+    {
+        this.vdx = -this.vdx;
+    }
+    RevisarLados(r)
+    {
+        if (DistLado(0,-1,-480,this.EcuacionVectorialDeLaRecta(r))<=this.tamaño) {
+            var circulo = this.EcuacionVectorialDeLaRecta(r);
+            circulo.Switchvdy();
+            var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
+            this.x = final.x;
+            this.y = final.y;
+            this.vdy = final.vdy;
+        }
+
+        if (DistLado(0,-1,480,this.EcuacionVectorialDeLaRecta(r))<=this.tamaño) {
+            var circulo = this.EcuacionVectorialDeLaRecta(r);
+            circulo.Switchvdy();
+            var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
+            this.x = final.x;
+            this.y = final.y;
+            this.vdy = final.vdy;
+        }
+
+        if (Math.abs(-325 - this.EcuacionVectorialDeLaRecta(r).x) <= this.tamaño) {
+            var circulo = this.EcuacionVectorialDeLaRecta(r);
+            circulo.Switchvdx();
+            var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
+            this.x = final.x;
+            this.y = final.y;
+            this.vdx = final.vdx;
+        }
+
+        if (Math.abs(325 - this.EcuacionVectorialDeLaRecta(r).x) <= this.tamaño) {
+            var circulo = this.EcuacionVectorialDeLaRecta(r);
+            circulo.Switchvdx();
+            var final = circulo.EcuacionVectorialDeLaRecta(r*-1);
+            this.x = final.x;
+            this.y = final.y;
+            this.vdx = final.vdx;
+        }
     }
 }
 
