@@ -1,6 +1,8 @@
 const buttonStr = document.getElementById("btnStart");
 const btnRandom = document.getElementById("btnRandom");
 const btnRandomVD = document.getElementById("btnRandomVD");
+const btnPdf = document.getElementById("btnPdf");
+btnPdf.addEventListener("click", () => Pdf())
 buttonStr.addEventListener("click", () => Motor())
 btnRandom.addEventListener("click", () => Randomizador())
 btnRandomVD.addEventListener("click", () => RandomizadorVD())
@@ -143,6 +145,12 @@ function Motor()
             console.log("Y1 = ",nc4+nc5*((-ndb-Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda)));
         }
     }
+}
+
+function Pdf() {
+    var doc = new jspdf.jsPDF();
+    doc.text("Holas, por favor funciona",15,15);
+    doc.save("Informe.pdf");
 }
 
 class Circulo
