@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <button id = "btn">calcular</button>
+    <button onclick="generatePdf()">PDF</button>
     <h5 style="color:Tomato;">
       Radio <input type="text" value="2" id = Cir1>
       X <input type="text" value="-1" id = PosX1>
@@ -34,4 +36,11 @@
     </script>
     <script src="test.js"></script>
 </body>
+<script>
+  function generatePdf() {
+    var doc = new jspdf.jsPDF();
+    doc.text("Holas, por favor funciona",15,15);
+    doc.save("test.pdf");
+  }
+</script>
 </html>
