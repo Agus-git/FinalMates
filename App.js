@@ -90,9 +90,11 @@ function Motor()
         circulo2 = cir2.EcuacionVectorialDeLaRecta(r);
 
         doc.setFont('courier');
+        doc.setFontSize(20);
+        doc.text("Calculo Nº"+CantidadDeCalculos,70,10);
         doc.setFontSize(15);
-        doc.text("Posicion del objeto",70,10);
-        PosYtxt = 20;
+        doc.text("Posicion del objeto",70,24);
+        PosYtxt = 36;
 
         doc.setTextColor(255, 0, 0);
         doc.setFontSize(12);
@@ -102,7 +104,7 @@ function Motor()
         doc.text("Director X = "+circulo1.vdx, 20,Y());
         doc.text("Director Y = "+circulo1.vdy, 20,Y());
 
-        PosYtxt = 20;
+        rY(5);
         doc.setTextColor(0, 255, 0);
         doc.text("Circulo 2", 110,Y());
         doc.text("X = "+circulo2.x, 100,Y());
