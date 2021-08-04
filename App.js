@@ -9,10 +9,14 @@ btnRandomVD.addEventListener("click", () => RandomizadorVD())
 
 var doc = new jspdf.jsPDF();
 var PosYtxt = 0;
+var CantidadDeCalculos = 1;
 
 function Y() {
     PosYtxt = PosYtxt + 12;
     return PosYtxt;
+}
+function rY(num) {
+    PosYtxt = PosYtxt - 12 * num;
 }
 
 function Motor()
@@ -81,15 +85,59 @@ function Motor()
 
     function Calculador() {
         //console.log(cir1.EcuacionVectorialDeLaRecta(r));
+        var width = doc.internal.pageSize.getWidth();
         circulo1 = cir1.EcuacionVectorialDeLaRecta(r);
         circulo2 = cir2.EcuacionVectorialDeLaRecta(r);
 
-        DistLado(0,-1,480, circulo1);
-        DistLado(0,-1,480, circulo2);
-        DistLado(0,-1,-480, circulo1);
-        DistLado(0,-1,-480, circulo2);
+        doc.setFont('courier');
+        doc.setFontSize(15);
+        doc.text("Posicion del objeto",70,10);
+        PosYtxt = 20;
+
+        doc.setTextColor(255, 0, 0);
+        doc.setFontSize(12);
+        doc.text("Circulo 1", 30,Y());
+        doc.text("X = "+circulo1.x, 20,Y());
+        doc.text("Y = "+circulo1.y, 20,Y());
+        doc.text("Director X = "+circulo1.vdx, 20,Y());
+        doc.text("Director Y = "+circulo1.vdy, 20,Y());
+
+        PosYtxt = 20;
+        doc.setTextColor(0, 255, 0);
+        doc.text("Circulo 2", 110,Y());
+        doc.text("X = "+circulo2.x, 100,Y());
+        doc.text("Y = "+circulo2.y, 100,Y());
+        doc.text("Director X = "+circulo2.vdx, 100,Y());
+        doc.text("Director Y = "+circulo2.vdy, 100,Y());
+        doc.setTextColor(1);
+
+        doc.setFontSize(15);
+        doc.text("Distancia entre si",20,Y())
+        doc.setFontSize(12);
+        doc.text("Distancia: "+ DistanciaEntre2Puntos(circulo1,circulo2),11,Y())
+        
+        doc.setFontSize(15);
+        doc.text("Distancia con las paredes",20,Y())
+        doc.setFontSize(12);
+        doc.setTextColor(255, 0, 0);
+        doc.text("Circulo 1", 30,Y());
+        doc.text("Esquina superior: "+ DistLado(0,-1,480, circulo1), 20,Y());
+        doc.text("Esquina inferior: "+ DistLado(0,-1,-480,circulo1), 20,Y());
+        doc.text("Esquina izquierda: "+ Math.abs(-325 - circulo1.x),20,Y());
+        doc.text("Esquina derecha: "+ Math.abs(325 - circulo1.x),20,Y());
+        rY(5);
+
+        doc.setTextColor(0, 255, 0);
+        doc.text("Circulo 2", 110,Y());
+        doc.text("Esquina superior: "+ DistLado(0,-1,480, circulo2), 100,Y());
+        doc.text("Esquina inferior: "+ DistLado(0,-1,-480,circulo2), 100,Y());
+        doc.text("Esquina izquierda: "+ Math.abs(-325 - circulo2.x),100,Y());
+        doc.text("Esquina derecha: "+ Math.abs(325 - circulo2.x),100,Y());
+        doc.setTextColor(1);
+
         if(DistanciaEntre2Puntos(circulo1,circulo2)<= (circulo1.tamaño/2) + (circulo2.tamaño/2))
         {
+            doc.addPage();
             x1 = circulo1.x;
             y1 = circulo1.y;
             r1 = circulo1.tamaño/2;
@@ -99,7 +147,6 @@ function Motor()
             r2 = circulo2.tamaño/2;
 
             doc.setFontSize(15);
-            doc.setFont('courier');
             doc.text("Calcular la interseccion de dos circunferencias",20,10);
             PosYtxt = 20;
 
@@ -155,9 +202,10 @@ function Motor()
             doc.text("X2 = "+(-ndb-Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda),11,Y());
             doc.text("Y1 = "+nc4+nc5*((-ndb+Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda)),11,Y());
             doc.text("Y2 = "+nc4+nc5*((-ndb-Math.sqrt(Math.pow(ndb,2)-4*nda*ndc))/ (2*nda)),11,Y());
-            doc.addPage();
-            PosYtxt = 0;
         }
+        PosYtxt = 0;
+        doc.addPage();
+        CantidadDeCalculos++;
     }
 }
 
