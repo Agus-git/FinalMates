@@ -91,51 +91,85 @@ function Motor()
 
         doc.setFont('courier');
         doc.setFontSize(20);
+
         doc.text("Calculo Nº"+CantidadDeCalculos,70,10);
         doc.setFontSize(15);
+
         doc.text("Posicion del objeto",70,24);
-        PosYtxt = 36;
-
-        doc.setTextColor(255, 0, 0);
-        doc.setFontSize(12);
-        doc.text("Circulo 1", 30,Y());
-        doc.text("X = "+circulo1.x, 20,Y());
-        doc.text("Y = "+circulo1.y, 20,Y());
-        doc.text("Director X = "+circulo1.vdx, 20,Y());
-        doc.text("Director Y = "+circulo1.vdy, 20,Y());
-
-        rY(5);
-        doc.setTextColor(0, 255, 0);
-        doc.text("Circulo 2", 110,Y());
-        doc.text("X = "+circulo2.x, 100,Y());
-        doc.text("Y = "+circulo2.y, 100,Y());
-        doc.text("Director X = "+circulo2.vdx, 100,Y());
-        doc.text("Director Y = "+circulo2.vdy, 100,Y());
-        doc.setTextColor(1);
-
-        doc.setFontSize(15);
-        doc.text("Distancia entre si",20,Y())
-        doc.setFontSize(12);
-        doc.text("Distancia: "+ DistanciaEntre2Puntos(circulo1,circulo2),11,Y())
         
-        doc.setFontSize(15);
-        doc.text("Distancia con las paredes",20,Y())
-        doc.setFontSize(12);
+        PosYtxt = 30;
         doc.setTextColor(255, 0, 0);
-        doc.text("Circulo 1", 30,Y());
-        doc.text("Esquina superior: "+ DistLado(0,-1,480, circulo1), 20,Y());
-        doc.text("Esquina inferior: "+ DistLado(0,-1,-480,circulo1), 20,Y());
-        doc.text("Esquina izquierda: "+ Math.abs(-325 - circulo1.x),20,Y());
-        doc.text("Esquina derecha: "+ Math.abs(325 - circulo1.x),20,Y());
-        rY(5);
+        doc.text("Circulo 1", 80,Y());
+        doc.text(""+circulo1.x, 80,Y());
+        doc.text(""+circulo1.y, 80,Y());
+        doc.text(""+circulo1.vdx, 80,Y());
+        doc.text(""+circulo1.vdy, 80,Y());
+        doc.text(""+DistLado(0,-1,480, circulo1), 80,Y());
+        doc.text(""+DistLado(0,-1,-480,circulo1), 80,Y());
+        doc.text(""+Math.abs(-325 - circulo1.x),80,Y());
+        doc.text(""+Math.abs(325 - circulo1.x),80,Y());
+        rY(8);
+
+        doc.setTextColor(1);
+        doc.text("X",20,Y());
+        doc.text("Y",20,Y());
+        doc.text("Director X",20,Y());
+        doc.text("Director Y",20,Y());
+        doc.text("Esquina superior",20,Y());
+        doc.text("Esquina inferior",20,Y());
+        doc.text("Esquina izquierda",20,Y());
+        doc.text("Esquina derecha",20,Y());
+        
+        rY(9);
 
         doc.setTextColor(0, 255, 0);
-        doc.text("Circulo 2", 110,Y());
-        doc.text("Esquina superior: "+ DistLado(0,-1,480, circulo2), 100,Y());
-        doc.text("Esquina inferior: "+ DistLado(0,-1,-480,circulo2), 100,Y());
-        doc.text("Esquina izquierda: "+ Math.abs(-325 - circulo2.x),100,Y());
-        doc.text("Esquina derecha: "+ Math.abs(325 - circulo2.x),100,Y());
+        doc.text("Circulo 2", 150,Y());
+        doc.text(""+circulo2.x, 150,Y());
+        doc.text(""+circulo2.y, 150,Y());
+        doc.text(""+circulo2.vdx, 150,Y());
+        doc.text(""+circulo2.vdy, 150,Y());
+        doc.text(""+DistLado(0,-1,480, circulo2), 150,Y());
+        doc.text(""+DistLado(0,-1,-480,circulo2), 150,Y());
+        doc.text(""+Math.abs(-325 - circulo2.x),150,Y());
+        doc.text(""+Math.abs(325 - circulo2.x),150,Y());
+        doc.setTextColor(100);
+        rY(9);
+        PosYtxt = PosYtxt + 5;
+        doc.setLineWidth(0.2)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+        Y();
+        doc.line(20, PosYtxt, 200, PosYtxt)
+
+        doc.line(78, 30, 78, 138)
+        doc.line(148, 30, 148, 138)
+
+
+
+        Y();
+        Y();
+
+
         doc.setTextColor(1);
+        doc.text("Distancia entre si: "+DistanciaEntre2Puntos(circulo1,circulo2),11,Y())
+        
+        
+        
+        //doc.setTextColor(255, 0, 0);
+
+        //doc.setTextColor(0, 255, 0);
 
         if(DistanciaEntre2Puntos(circulo1,circulo2)<= (circulo1.tamaño/2) + (circulo2.tamaño/2))
         {
