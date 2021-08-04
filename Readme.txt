@@ -6,3 +6,4 @@ Frecuencia de calculado: La frecuencia a la que se realizaran los calculos
 Randomizador de ubicaciones: cambia la posicion de las pelotas de forma aleatoria.
 Randomizador de VD: cambia la direccion de los vectores directores de forma aleatoria.
 
+-Haga doble click en la aplicacion "Final.html" para iniciar la simulacion
